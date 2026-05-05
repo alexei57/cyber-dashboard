@@ -46,6 +46,36 @@ class Particle {
 
 const arrayParticles = [];
 
+function handlerParticles() {
+    for(let i = 0; i < arrayParticles.length; i++) {
+        arrayParticles[i].update();
+        arrayParticles[i].draw();
+
+        if(arrayParticles[i].size <= 0.3) {
+            arrayParticles.splice(i, 1);
+            i--;
+        };
+    };
+}
+
+function connectParticles() {
+    for(let i = 0; i < arrayParticles.length; i++) {
+        for(let j = i; j < arrayParticles.length; j++) {
+            const dx = arrayParticles[i].x - arrayParticles[j].x;
+            const dy = arrayParticles[i].y - arrayParticles[j].y;
+            const distance = Math.hypot(dx, dy);
+            if(distance < 100) {
+                ctx.strokeStyle = '#00f2ff';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(arrayParticles[i].x, arrayParticles[i].y);
+                ctx.lineTo(arrayParticles[j].x, arrayParticles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
 function animate() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -55,15 +85,9 @@ function animate() {
     ctx.fillStyle = '#00f2ff';
     ctx.fillRect(mouse.x, mouse.y, 50, 50);
 
-    for(let i = 0; i < arrayParticles.length; i++) {
-        arrayParticles[i].update();
-        arrayParticles[i].draw();
+    handlerParticles();
 
-        if(arrayParticles[i].size <= 0.3) {
-            arrayParticles.splice(i, 1);
-            i--;
-        }
-    };
+    connectParticles();
 
     requestAnimationFrame(animate);
 }
