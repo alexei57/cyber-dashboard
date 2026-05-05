@@ -22,7 +22,10 @@ window.addEventListener('mousemove', function(event) {
 });
 
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = '#00f2ff';
     ctx.fillRect(mouse.x, mouse.y, 50, 50);
