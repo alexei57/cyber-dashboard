@@ -10,7 +10,17 @@
     <canvas id="main-canvas"></canvas>
 
     <div id="ui-layer">
-        <h1 class="glitch" data-text="SYSTEM ACTIVE">SYSTEM ACTIVE</h1>
+        <div class="dashboard">
+            <div class="widget glass">
+                <h3 class="label">SYSTEM STATUS</h3>
+                <p class="data">ONLINE</p>
+            </div>
+            <div class="spacer"></div>
+            <div class="widget glass">
+                <h3 class="label">MARKET DATA</h3>
+                <p id="crypto-price" class="data">FETCHING...</p>
+            </div>
+        </div>>
     </div>
 
     <script src="app.js"></script>
