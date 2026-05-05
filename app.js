@@ -1,5 +1,8 @@
 const canvas = document.getElementById('main-canvas');
 const ctx = canvas.getContext('2d');
+const btcPriceElement = document.getElementById('crypto-btc-price');
+const ethPriceElement = document.getElementById('crypto-eth-price');
+const solanaPriceElement = document.getElementById('crypto-solana-price');
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -96,3 +99,28 @@ function animate() {
 }
 
 animate();
+
+async function getCryptoPrice() {
+    try {
+        const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd';
+        const response = await fetch(url);
+        const data = await response.json();
+        const btcPrice = data.bitcoin.usd;
+        const ethPrice = data.ethereum.usd;
+        const solanaPrice = data.solana.usd;
+
+        btcPriceElement.innerText = `Bitcoin: ${btcPrice}$`;
+        ethPriceElement.innerText = `Ethereum: ${ethPrice}$`;
+        solanaPriceElement.innerHTML = `Solana: ${solanaPrice}$`;
+
+    } catch(error) {
+        console.error("Fetch error:", error);
+        const errorMsg = "SYSTEM BUSY";
+        btcPriceElement.textContent = errorMsg;
+        ethPriceElement.textContent = errorMsg;
+        solanaPriceElement.textContent = errorMsg;
+    }
+
+}
+
+getCryptoPrice();
