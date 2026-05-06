@@ -31,6 +31,8 @@ window.addEventListener('mousemove', function(event) {
     arrayParticles.push(new Particle());
 });
 
+let lastElement = null;
+
 window.addEventListener('touchmove', function(event) {
     event.preventDefault();
 
@@ -38,7 +40,19 @@ window.addEventListener('touchmove', function(event) {
     mouse.y = event.touches[0].clientY;
 
     arrayParticles.push(new Particle());
-});
+
+    const element = document.elementFromPoint(mouse.x, mouse.y);
+
+    if(element !== lastElement) {
+        if(element && element.classList.contains('system-log')) {
+            playBeep(300);
+        } else {
+            playBeep(600);
+        }
+        lastElement = element;
+    }
+
+}, { passive: false });
 
 class Particle {
     constructor() {
