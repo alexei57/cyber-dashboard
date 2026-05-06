@@ -49,6 +49,7 @@ body {
 
 .widget.glass {
     pointer-events: auto;
+    text-align: center;
 }
 
 .glass {
@@ -87,6 +88,7 @@ body {
     text-shadow: 0 0 5px #00f2ff;
     line-height: 1.5;
     pointer-events: auto;
+    text-align: center;
 }
 
 .system-log::-webkit-scrollbar {
@@ -105,4 +107,43 @@ body {
 
 #log-content {
     padding: 10px;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .system-log {
+        grid-column: 1;
+        height: 100px;
+    }
+
+    .data {
+        font-size: 1.4rem;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .system-log {
+        grid-column: 1;
+        height: 100px;
+    }
+
+    .data {
+        font-size: 1.2rem;
+    }
+
+    .label {
+        font-size: 0.65rem;
+    }
+
 }
