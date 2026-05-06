@@ -70,3 +70,30 @@ body {
     font-weight: bold;
     font-family: monospace;
 }
+
+.system-log {
+    display: grid;
+    grid-column: 1 / 4;
+    font-family: monospace;
+    font-size: 0.7rem;
+    max-height: 100px;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    color: #00f2ff;
+    text-shadow: 0 0 5px #00f2ff;
+    line-height: 1.5;
+}
+
+.system-log::-webkit-scrollbar {
+    width: 4px;
+}
+
+.system-log::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.system-log::-webkit-scrollbar-thumb {
+    background: #00f2ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00f2ff;
+}

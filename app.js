@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 const btcPriceElement = document.getElementById('crypto-btc-price');
 const ethPriceElement = document.getElementById('crypto-eth-price');
 const solanaPriceElement = document.getElementById('crypto-solana-price');
+const logContent = document.getElementById('log-content');
+const logWrapper = document.querySelector('.system-log');
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -109,18 +111,28 @@ async function getCryptoPrice() {
         const ethPrice = data.ethereum.usd;
         const solanaPrice = data.solana.usd;
 
-        btcPriceElement.innerText = `Bitcoin: ${btcPrice}$`;
-        ethPriceElement.innerText = `Ethereum: ${ethPrice}$`;
-        solanaPriceElement.innerHTML = `Solana: ${solanaPrice}$`;
+        btcPriceElement.textContent = `Bitcoin: ${btcPrice}$`;
+        ethPriceElement.textContent = `Ethereum: ${ethPrice}$`;
+        solanaPriceElement.textContent = `Solana: ${solanaPrice}$`;
+
+        addLog('Market data synchronized');
 
     } catch(error) {
-        console.error("Fetch error:", error);
+        console.error("Fetch error:", error.message);
         const errorMsg = "SYSTEM BUSY";
-        btcPriceElement.textContent = errorMsg;
-        ethPriceElement.textContent = errorMsg;
-        solanaPriceElement.textContent = errorMsg;
+        addLog(errorMsg);
     }
 
 }
 
 getCryptoPrice();
+
+setInterval(getCryptoPrice, 60000);
+
+function addLog(message) {
+    const time = new Date().toLocaleTimeString();
+
+    logContent.innerHTML += `<br>${time} ${message}`;
+
+    logWrapper.scrollTop = logWrapper.scrollHeight;
+}
