@@ -77,7 +77,8 @@ body {
 }
 
 .system-log {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-column: 1 / 4;
     font-family: monospace;
     font-size: 0.7rem;
@@ -106,7 +107,7 @@ body {
 }
 
 #log-content {
-    padding: 10px;
+    padding: 10px 0;
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {
@@ -122,6 +123,10 @@ body {
 
     .data {
         font-size: 1.4rem;
+    }
+
+    .spacer {
+        display: none;
     }
 
 }
@@ -144,6 +149,10 @@ body {
 
     .label {
         font-size: 0.65rem;
+    }
+
+    .spacer {
+        display: none;
     }
 
 }
