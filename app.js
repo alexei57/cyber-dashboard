@@ -41,15 +41,22 @@ window.addEventListener('touchmove', function(event) {
 
     arrayParticles.push(new Particle());
 
-    const element = document.elementFromPoint(mouse.x, mouse.y);
+    const target = document.elementFromPoint(mouse.x, mouse.y);
+    const element = target?.closest('.system-log, .glass');
 
-    if(element !== lastElement) {
-        if(element && element.classList.contains('system-log')) {
+    if (!element) {
+        lastElement = null;
+        return;
+    }
+
+    if (element !== lastElement) {
+        lastElement = element;
+
+        if (element.classList.contains('system-log')) {
             playBeep(300);
-        } else {
+        } else if (element.classList.contains('glass')) {
             playBeep(600);
         }
-        lastElement = element;
     }
 
 }, { passive: false });
