@@ -7,6 +7,7 @@ const logContent = document.getElementById('log-content');
 const logWrapper = document.querySelector('.system-log');
 const glassWrapper = document.querySelectorAll('.glass');
 let audioCTX;
+const clock = document.getElementById('clock');
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -93,7 +94,7 @@ function animate() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = '#00f2ff';
-    ctx.fillRect(mouse.x, mouse.y, 50, 50);
+    ctx.fillRect(mouse.x, mouse.y, 30, 30);
 
     handlerParticles();
 
@@ -169,3 +170,11 @@ glassWrapper.forEach(el => {
         }
     })
 })
+
+function updateClock() {
+    const now = new Date().toLocaleTimeString();
+    clock.textContent = `${now}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
