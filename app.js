@@ -31,6 +31,15 @@ window.addEventListener('mousemove', function(event) {
     arrayParticles.push(new Particle());
 });
 
+window.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+
+    mouse.x = event.touches[0].clientX;
+    mouse.y = event.touches[0].clientY;
+
+    arrayParticles.push(new Particle());
+});
+
 class Particle {
     constructor() {
         this.x = mouse.x;
