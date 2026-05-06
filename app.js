@@ -5,6 +5,8 @@ const ethPriceElement = document.getElementById('crypto-eth-price');
 const solanaPriceElement = document.getElementById('crypto-solana-price');
 const logContent = document.getElementById('log-content');
 const logWrapper = document.querySelector('.system-log');
+const glassWrapper = document.querySelectorAll('.glass');
+let audioCTX;
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -136,3 +138,34 @@ function addLog(message) {
 
     logWrapper.scrollTop = logWrapper.scrollHeight;
 }
+
+function playBeep(frequency) {
+
+    if(!audioCTX) {
+        audioCTX = new (window.AudioContext || window.webkitAudioContext)();
+    };
+
+    if (audioCTX.state === 'suspended') {
+        audioCTX.resume();
+    };
+
+    const oscillator = audioCTX.createOscillator();
+
+    oscillator.type = 'square';
+    oscillator.frequency.value = frequency;
+
+    oscillator.connect(audioCTX.destination);
+    oscillator.start();
+
+    oscillator.stop(audioCTX.currentTime + 0.05);
+}
+
+glassWrapper.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        if(el.classList.contains('system-log')) {
+            playBeep(300);
+        } else {
+            playBeep(600);
+        }
+    })
+})

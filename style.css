@@ -47,6 +47,10 @@ body {
     box-sizing: border-box;
 }
 
+.widget.glass {
+    pointer-events: auto;
+}
+
 .glass {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
@@ -76,12 +80,13 @@ body {
     grid-column: 1 / 4;
     font-family: monospace;
     font-size: 0.7rem;
-    max-height: 100px;
+    height: 150px;
     scroll-behavior: smooth;
     overflow-y: auto;
     color: #00f2ff;
     text-shadow: 0 0 5px #00f2ff;
     line-height: 1.5;
+    pointer-events: auto;
 }
 
 .system-log::-webkit-scrollbar {
@@ -96,4 +101,8 @@ body {
     background: #00f2ff;
     border-radius: 10px;
     box-shadow: 0 0 10px #00f2ff;
+}
+
+#log-content {
+    padding: 10px;
 }
