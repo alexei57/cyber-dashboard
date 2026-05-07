@@ -62,7 +62,7 @@ body {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--neon-color) ;
-    box-shadow: 0 0 15px var(--neon-glow) !important;
+    box-shadow: 0 0 5px var(--neon-glow, rgba(0, 242, 255, 0.2)) !important;
     border-radius: 15px;
     padding: 20px;
     color: white;
@@ -93,7 +93,7 @@ body {
     overflow-y: auto;
     color: var(--neon-color);
     border: 1px solid var(--neon-color) !important;
-    box-shadow: 0 0 15px var(--neon-glow) !important;
+    box-shadow: 0 0 5px var(--neon-glow, rgba(0, 242, 255, 0.2)) !important;
     text-shadow: 0 0 5px var(--neon-color);
     line-height: 1.5;
     pointer-events: auto;

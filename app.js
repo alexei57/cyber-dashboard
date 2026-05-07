@@ -10,7 +10,7 @@ let audioCTX;
 const clock = document.getElementById('clock');
 let engineSpeed = 3;
 let connectionRadius = 100;
-let systemColor = '#00f2ff';
+let systemColor = 'rgb(0, 242, 255)';
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -102,8 +102,9 @@ function handlerParticles() {
 }
 
 function connectParticles() {
+    ctx.shadowBlur = 0;
     for(let i = 0; i < arrayParticles.length; i++) {
-        for(let j = i; j < arrayParticles.length; j++) {
+        for(let j = i + 1; j < arrayParticles.length; j++) {
             const dx = arrayParticles[i].x - arrayParticles[j].x;
             const dy = arrayParticles[i].y - arrayParticles[j].y;
             const distance = Math.hypot(dx, dy);
@@ -117,7 +118,6 @@ function connectParticles() {
                 ctx.moveTo(arrayParticles[i].x, arrayParticles[i].y);
                 ctx.lineTo(arrayParticles[j].x, arrayParticles[j].y);
                 ctx.stroke();
-                ctx.shadowBlur = 0;
             }
         }
     }
@@ -297,3 +297,5 @@ function changeTheme(newColor) {
     addLog(`System: Theme updated to ${newColor}`);
     playBeep(300);
 }
+
+changeTheme('#00f2ff');
