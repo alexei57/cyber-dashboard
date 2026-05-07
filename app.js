@@ -31,7 +31,9 @@ window.addEventListener('mousemove', function(event) {
     mouse.x = event.x;
     mouse.y = event.y;
 
-    arrayParticles.push(new Particle());
+    if (arrayParticles.length < 40) {
+        arrayParticles.push(new Particle());
+    }
 });
 
 let lastElement = null;
@@ -42,7 +44,7 @@ window.addEventListener('touchmove', function(event) {
     mouse.x = event.touches[0].clientX;
     mouse.y = event.touches[0].clientY;
 
-    if (arrayParticles.length < 50) {
+    if (arrayParticles.length < 40) {
         arrayParticles.push(new Particle());
     }
 
@@ -83,7 +85,7 @@ class Particle {
     update() {
         this.x += this.speedX * (engineSpeed / 3);
         this.y += this.speedY;
-        this.size -= 0.1;
+        this.size -= 0.2;
     }
 }
 
@@ -102,7 +104,10 @@ function handlerParticles() {
 }
 
 function connectParticles() {
-    ctx.shadowBlur = 0;
+    ctx.lineWidth = 0.5;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = systemColor;
+
     for(let i = 0; i < arrayParticles.length; i++) {
         for(let j = i + 1; j < arrayParticles.length; j++) {
             const dx = arrayParticles[i].x - arrayParticles[j].x;
@@ -111,9 +116,7 @@ function connectParticles() {
             if(distance < connectionRadius) {
                 let opacity = 1 - (distance / 100);
                 ctx.strokeStyle = systemColor.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
-                ctx.lineWidth = 0.5;
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = systemColor;
+
                 ctx.beginPath();
                 ctx.moveTo(arrayParticles[i].x, arrayParticles[i].y);
                 ctx.lineTo(arrayParticles[j].x, arrayParticles[j].y);
@@ -121,6 +124,7 @@ function connectParticles() {
             }
         }
     }
+    ctx.shadowBlur = 0;
 }
 
 function animate() {
