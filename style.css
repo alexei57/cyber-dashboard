@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+:root {
+    --neon-color: #00f2ff;
+    --neon-glow: rgba(0, 242, 255, 0.2);
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -31,12 +36,8 @@ body {
     pointer-events: none;
 }
 
-:root {
-    --neon-color: #00f2ff;
-}
-
 .glitch {
-    color: var(--neon-color) !important;
+    color: var(--neon-color);
     font-size: 5rem;
     letter-spacing: 10px;
     text-shadow: 0 0 20px var(--neon-color);
@@ -57,11 +58,11 @@ body {
 }
 
 .glass {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(10, 10, 10, 0.8) !important;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--neon-color) ;
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 15px var(--neon-glow) !important;
     border-radius: 15px;
     padding: 20px;
     color: white;
@@ -70,7 +71,7 @@ body {
 .label {
     font-size: 0.8rem;
     letter-spacing: 2px;
-    color: var(--neon-color) !important;
+    color: var(--neon-color);
     text-shadow: 0 0 10px var(--neon-color);
     margin-bottom: 10px;
 }
@@ -90,9 +91,9 @@ body {
     height: 150px;
     scroll-behavior: smooth;
     overflow-y: auto;
-    color: var(--neon-color) !important;
+    color: var(--neon-color);
     border: 1px solid var(--neon-color) !important;
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 15px var(--neon-glow) !important;
     text-shadow: 0 0 5px var(--neon-color);
     line-height: 1.5;
     pointer-events: auto;
@@ -110,7 +111,7 @@ body {
 .system-log::-webkit-scrollbar-thumb {
     color: var(--neon-color);
     border-radius: 10px;
-    box-shadow: 0 0 10px var(--neon-color);
+    box-shadow: 0 0 10px var(--neon-glow) !important;
 }
 
 #log-content {

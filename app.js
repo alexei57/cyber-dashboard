@@ -107,7 +107,7 @@ function connectParticles() {
             const distance = Math.hypot(dx, dy);
             if(distance < connectionRadius) {
                 let opacity = 1 - (distance / 100);
-                ctx.strokeStyle = `rgba(0, 242, 255, ${opacity})`;
+                ctx.strokeStyle = systemColor.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
                 ctx.lineWidth = 0.5;
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = systemColor;
@@ -115,6 +115,7 @@ function connectParticles() {
                 ctx.moveTo(arrayParticles[i].x, arrayParticles[i].y);
                 ctx.lineTo(arrayParticles[j].x, arrayParticles[j].y);
                 ctx.stroke();
+                ctx.shadowBlur = 0;
             }
         }
     }
@@ -122,12 +123,10 @@ function connectParticles() {
 
 function animate() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.shadowBlur = 0;
 
     ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = systemColor;
-    ctx.fillRect(mouse.x, mouse.y, 30, 30);
 
     handlerParticles();
 
@@ -290,6 +289,8 @@ distRange.addEventListener('change', el => {
 
 function changeTheme(newColor) {
     document.documentElement.style.setProperty('--neon-color', newColor);
+    const glowColor = newColor.replace('rgb', 'rgba').replace(')', ', 0.2)');
+    document.documentElement.style.setProperty('--neon-glow', glowColor);
     systemColor = newColor;
     addLog(`System: Theme updated to ${newColor}`);
     playBeep(300);
