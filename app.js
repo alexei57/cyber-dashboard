@@ -42,7 +42,9 @@ window.addEventListener('touchmove', function(event) {
     mouse.x = event.touches[0].clientX;
     mouse.y = event.touches[0].clientY;
 
-    arrayParticles.push(new Particle());
+    if (arrayParticles.length < 50) {
+        arrayParticles.push(new Particle());
+    }
 
     const target = document.elementFromPoint(mouse.x, mouse.y);
     const element = target?.closest('.system-log, .glass');

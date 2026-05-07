@@ -168,11 +168,16 @@ input[type="range"]:hover {
     }
 
     .data {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
     }
 
     .spacer {
         display: none;
+    }
+
+    .color-btn {
+        width: 15px;
+        height: 15px;
     }
 
 }
