@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Cyber dashboard</title>
 </head>
 <body>
     <canvas id="main-canvas"></canvas>
@@ -19,8 +19,11 @@
             <div class="widget glass">
                 <h3 class="label">MARKET DATA</h3>
                 <p id="crypto-btc-price" class="data">FETCHING...</p>
+                <canvas id="btc-chart" width="200" height="50"></canvas>
                 <p id="crypto-eth-price" class="data"></p>
+                <canvas id="eth-chart" width="200" height="50"></canvas>
                 <p id="crypto-solana-price" class="data"></p>
+                <canvas id="solana-chart" width="200" height="50"></canvas>
             </div>
             <div class="system-log glass">
                 <div id="log-content">Initializing system...</div>

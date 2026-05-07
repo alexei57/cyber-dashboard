@@ -135,6 +135,13 @@ function animate() {
 
 animate();
 
+let priceHistory = {
+    btc: [],
+    eth: [],
+    solana: []
+};
+
+
 async function getCryptoPrice() {
     try {
         const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd';
@@ -148,7 +155,20 @@ async function getCryptoPrice() {
         ethPriceElement.textContent = `Ethereum: ${ethPrice}$`;
         solanaPriceElement.textContent = `Solana: ${solanaPrice}$`;
 
+        priceHistory.btc.push(btcPrice);
+        if(priceHistory.btc.length > 20) priceHistory.btc.shift();
+
+        priceHistory.eth.push(ethPrice);
+        if(priceHistory.eth.length > 20) priceHistory.eth.shift();
+
+        priceHistory.solana.push(solanaPrice);
+        if(priceHistory.solana.length > 20) priceHistory.solana.shift();
+
         addLog('Market data synchronized');
+
+        drawChart('btc-chart', priceHistory.btc, 'rgba(0, 242, 255, 1)');
+        drawChart('eth-chart', priceHistory.eth, 'rgba(163, 53, 238, 1)');
+        drawChart('solana-chart', priceHistory.solana, 'rgba(20, 241, 149, 1)');
 
     } catch(error) {
         console.error("Fetch error:", error.message);
@@ -160,7 +180,47 @@ async function getCryptoPrice() {
 
 getCryptoPrice();
 
-setInterval(getCryptoPrice, 60000);
+setInterval(getCryptoPrice, 30000);
+
+function drawChart(canvasId, dataPoints, color) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if(!canvas || dataPoints.length < 2) return;
+
+    const minPrice = Math.min(...dataPoints);
+    const maxPrice = Math.max(...dataPoints);
+    const range = maxPrice - minPrice || 1;
+
+    ctx.beginPath();
+
+    dataPoints.forEach((price, index) => {
+        const x = (canvas.width / (dataPoints.length - 1)) * index;
+        const y = canvas.height - ((price - minPrice) / range) * canvas.height;
+
+        if(index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+
+    ctx.lineTo((canvas.width / (dataPoints.length - 1)) * (dataPoints.length - 1), canvas.height);
+    ctx.lineTo(0, canvas.height);
+    ctx.closePath();
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    const fillColor = color.replace('1)', '0.4)');
+    gradient.addColorStop(0, fillColor);
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+}
 
 function addLog(message) {
     const time = new Date().toLocaleTimeString();
@@ -208,3 +268,4 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
+
