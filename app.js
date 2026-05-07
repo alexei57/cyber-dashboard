@@ -12,6 +12,8 @@ let engineSpeed = 3;
 let connectionRadius = 100;
 let systemColor = 'rgb(0, 242, 255)';
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -44,7 +46,9 @@ window.addEventListener('touchmove', function(event) {
     mouse.x = event.touches[0].clientX;
     mouse.y = event.touches[0].clientY;
 
-    if (arrayParticles.length < 40) {
+    const maxParticles = isMobile ? 25 : 60;
+
+    if (arrayParticles.length < maxParticles) {
         arrayParticles.push(new Particle());
     }
 
@@ -104,9 +108,14 @@ function handlerParticles() {
 }
 
 function connectParticles() {
+    if (!isMobile) {
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = systemColor;
+    } else {
+        ctx.shadowBlur = 0;
+    }
+
     ctx.lineWidth = 0.5;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = systemColor;
 
     for(let i = 0; i < arrayParticles.length; i++) {
         for(let j = i + 1; j < arrayParticles.length; j++) {
@@ -131,7 +140,7 @@ function animate() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.shadowBlur = 0;
 
-    ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     handlerParticles();
@@ -276,22 +285,6 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-
-const speedRange = document.getElementById('speed-range');
-const distRange = document.getElementById('dist-range');
-
-speedRange.addEventListener('input', el => {
-    engineSpeed = el.target.value;
-    playBeep(200);
-});
-
-distRange.addEventListener('input', el => {
-    connectionRadius = el.target.value;
-});
-
-distRange.addEventListener('change', el => {
-    addLog(`System: link radius updated to ${el.target.value}px`)
-})
 
 function changeTheme(newColor) {
     document.documentElement.style.setProperty('--neon-color', newColor);

@@ -128,19 +128,6 @@ canvas[id$='-chart'] {
     margin-top: 15px;
 }
 
-input[type="range"] {
-    width: 100%;
-    cursor: pointer;
-    accent-color: var(--neon-color);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    outline: none;
-}
-
-input[type="range"]:hover {
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
-}
-
 .color-picker {
     display: flex;
     gap: 10px;
@@ -162,9 +149,17 @@ input[type="range"]:hover {
         grid-template-columns: 1fr;
     }
 
+    .glass {
+        padding: 10px;
+    }
+
+    .label {
+        margin-bottom: 5px;
+    }
+
     .system-log {
         grid-column: 1;
-        height: 100px;
+        height: 50px;
     }
 
     .data {
@@ -178,6 +173,10 @@ input[type="range"]:hover {
     .color-btn {
         width: 15px;
         height: 15px;
+    }
+
+    .control-group {
+        margin-top: 10px;
     }
 
 }
