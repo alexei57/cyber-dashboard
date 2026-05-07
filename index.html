@@ -12,12 +12,29 @@
     <div id="ui-layer">
         <div class="dashboard">
             <div class="widget glass">
-                <h3 class="label">SYSTEM TIME</h3>
+                <h3 class="label glitch">SYSTEM TIME</h3>
                 <p id="clock" class="data">00:00:00</p>
+                <h3 class="label glitch">ENGINE SETTINGS</h3>
+                <div class="control-group">
+                    <label>PARTICLE SPEED</label>
+                    <input type="range" id="speed-range" min="1" max="10" value="2">
+                </div>
+                <div class="control-group">
+                    <label>LINE DISTANCE</label>
+                    <input type="range" id="dist-range" min="50" max="250" value="100">
+                </div>
+                <div class="control-group">
+                    <h3 class="label glitch">SYSTEM COLOR</h3>
+                    <div class="color-picker">
+                        <div class="color-btn" style="background: #00f2ff" onclick="changeTheme('#00f2ff')"></div>
+                        <div class="color-btn" style="background: #a335ee" onclick="changeTheme('#a335ee')"></div>
+                        <div class="color-btn" style="background: #08d819" onclick="changeTheme('#08d819')"></div>
+                    </div>
+                </div>
             </div>
             <div class="spacer"></div>
             <div class="widget glass">
-                <h3 class="label">MARKET DATA</h3>
+                <h3 class="label glitch">MARKET DATA</h3>
                 <p id="crypto-btc-price" class="data">FETCHING...</p>
                 <canvas id="btc-chart" width="200" height="50"></canvas>
                 <p id="crypto-eth-price" class="data"></p>

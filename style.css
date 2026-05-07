@@ -9,7 +9,7 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: #050505;
+    background-color: #050505 !important;
     overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -31,11 +31,15 @@ body {
     pointer-events: none;
 }
 
+:root {
+    --neon-color: #00f2ff;
+}
+
 .glitch {
-    color: #00f2ff;
+    color: var(--neon-color) !important;
     font-size: 5rem;
     letter-spacing: 10px;
-    text-shadow: 0 0 20px #00f2ff;
+    text-shadow: 0 0 20px var(--neon-color);
 }
 
 .dashboard {
@@ -56,7 +60,8 @@ body {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--neon-color) ;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
     border-radius: 15px;
     padding: 20px;
     color: white;
@@ -65,8 +70,8 @@ body {
 .label {
     font-size: 0.8rem;
     letter-spacing: 2px;
-    color: #00f2ff;
-    text-shadow: 0 0 10px #00f2ff;
+    color: var(--neon-color) !important;
+    text-shadow: 0 0 10px var(--neon-color);
     margin-bottom: 10px;
 }
 
@@ -85,8 +90,10 @@ body {
     height: 150px;
     scroll-behavior: smooth;
     overflow-y: auto;
-    color: #00f2ff;
-    text-shadow: 0 0 5px #00f2ff;
+    color: var(--neon-color) !important;
+    border: 1px solid var(--neon-color) !important;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+    text-shadow: 0 0 5px var(--neon-color);
     line-height: 1.5;
     pointer-events: auto;
     text-align: center;
@@ -101,9 +108,9 @@ body {
 }
 
 .system-log::-webkit-scrollbar-thumb {
-    background: #00f2ff;
+    color: var(--neon-color);
     border-radius: 10px;
-    box-shadow: 0 0 10px #00f2ff;
+    box-shadow: 0 0 10px var(--neon-color);
 }
 
 #log-content {
@@ -114,6 +121,38 @@ canvas[id$='-chart'] {
     width: 100%;
     height: 50px;
     margin-top: 10px;
+}
+
+.control-group {
+    margin-top: 15px;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    accent-color: var(--neon-color);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]:hover {
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+}
+
+.color-picker {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.color-btn {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {

@@ -8,6 +8,9 @@ const logWrapper = document.querySelector('.system-log');
 const glassWrapper = document.querySelectorAll('.glass');
 let audioCTX;
 const clock = document.getElementById('clock');
+let engineSpeed = 3;
+let connectionRadius = 100;
+let systemColor = '#00f2ff';
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -76,7 +79,7 @@ class Particle {
         ctx.fill();
     };
     update() {
-        this.x += this.speedX;
+        this.x += this.speedX * (engineSpeed / 3);
         this.y += this.speedY;
         this.size -= 0.1;
     }
@@ -102,12 +105,12 @@ function connectParticles() {
             const dx = arrayParticles[i].x - arrayParticles[j].x;
             const dy = arrayParticles[i].y - arrayParticles[j].y;
             const distance = Math.hypot(dx, dy);
-            if(distance < 100) {
-                let opacity = 1 - (distance/100);
+            if(distance < connectionRadius) {
+                let opacity = 1 - (distance / 100);
                 ctx.strokeStyle = `rgba(0, 242, 255, ${opacity})`;
                 ctx.lineWidth = 0.5;
                 ctx.shadowBlur = 15;
-                ctx.shadowColor = '00f2ff';
+                ctx.shadowColor = systemColor;
                 ctx.beginPath();
                 ctx.moveTo(arrayParticles[i].x, arrayParticles[i].y);
                 ctx.lineTo(arrayParticles[j].x, arrayParticles[j].y);
@@ -123,7 +126,7 @@ function animate() {
     ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#00f2ff';
+    ctx.fillStyle = systemColor;
     ctx.fillRect(mouse.x, mouse.y, 30, 30);
 
     handlerParticles();
@@ -269,3 +272,25 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+const speedRange = document.getElementById('speed-range');
+const distRange = document.getElementById('dist-range');
+
+speedRange.addEventListener('input', el => {
+    engineSpeed = el.target.value;
+    playBeep(200);
+});
+
+distRange.addEventListener('input', el => {
+    connectionRadius = el.target.value;
+});
+
+distRange.addEventListener('change', el => {
+    addLog(`System: link radius updated to ${el.target.value}px`)
+})
+
+function changeTheme(newColor) {
+    document.documentElement.style.setProperty('--neon-color', newColor);
+    systemColor = newColor;
+    addLog(`System: Theme updated to ${newColor}`);
+    playBeep(300);
+}
